@@ -2,7 +2,7 @@ import 'dart:math';
 
 import 'package:flutter/material.dart';
 import 'package:openViewF1/data/models/session.dart';
-import 'package:openViewF1/data/view_models/session_view_model.dart';
+import 'package:openViewF1/view_models/session_view_model.dart';
 import 'package:openViewF1/helpers/constants.dart';
 import 'package:provider/provider.dart';
 

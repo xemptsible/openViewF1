@@ -1,7 +1,7 @@
 import 'dart:convert';
 
 import 'package:openViewF1/data/models/session.dart';
-import 'package:openViewF1/data/services/api_client.dart';
+import 'package:openViewF1/helpers/services/api_client.dart';
 
 abstract class SessionRepo {
   Future<List<Session>> getSessions({dynamic queryParams});

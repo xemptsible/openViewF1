@@ -2,8 +2,8 @@ import 'package:flutter/material.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:get_storage/get_storage.dart';
 import 'package:openViewF1/data/repositories/session_repo.dart';
-import 'package:openViewF1/data/services/locator.dart';
-import 'package:openViewF1/data/view_models/session_view_model.dart';
+import 'package:openViewF1/helpers/services/locator.dart';
+import 'package:openViewF1/view_models/session_view_model.dart';
 import 'package:openViewF1/views/home.dart';
 import 'package:provider/provider.dart';
 

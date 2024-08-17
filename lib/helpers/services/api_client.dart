@@ -3,7 +3,7 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:openViewF1/data/services/dio_exception_handler.dart';
+import 'package:openViewF1/helpers/services/dio_exception_handler.dart';
 import 'package:openViewF1/helpers/constants.dart';
 
 class ApiClient {
