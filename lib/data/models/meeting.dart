@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
 import 'package:openViewF1/helpers/constants.dart';
 
@@ -78,7 +79,14 @@ class MeetingListItem extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return InkWell(
-      onTap: () {},
+      onTap: () {
+        dynamic queryParams = {
+          'country_name': data.countryName,
+          'year': data.year.toString(),
+        };
+        context.go('/session/${data.year}/${data.countryName!.toLowerCase()}',
+            extra: queryParams);
+      },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: pad16, horizontal: pad8),
         child: Row(

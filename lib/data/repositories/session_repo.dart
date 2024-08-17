@@ -11,7 +11,6 @@ class SessionRepo extends Repository {
 
     dynamic defaultQueryParams = {
       'year': DateTime.now().year.toString(),
-      'session_name': 'Race',
     };
 
     await ApiClient.instance
@@ -30,8 +29,25 @@ class SessionRepo extends Repository {
   }
 
   @override
-  Future<List> getWithFilter(queryParams) {
-    // TODO: implement getWithFilter in Session
-    throw UnimplementedError();
+  Future<List> getWithFilter(queryParams) async {
+    List<Session> list = [];
+
+    dynamic defaultQueryParams = {
+      'year': DateTime.now().year.toString(),
+    };
+
+    await ApiClient.instance
+        .get('/sessions', queryParams: queryParams ?? defaultQueryParams)
+        .then(
+      (json) {
+        json != null
+            ? list = (jsonDecode(json) as List)
+                .map((e) => Session.fromJson(e))
+                .toList()
+            : list;
+      },
+    );
+
+    return list;
   }
 }

@@ -24,4 +24,16 @@ class SessionViewModel extends ChangeNotifier {
       notifyListeners();
     }
   }
+
+  Future<void> fetchSessionsByQuery(queryParams) async {
+    _isLoading = true;
+    try {
+      _sessions = await sessionRepo.getWithFilter(queryParams) as List<Session>;
+    } catch (e) {
+      rethrow;
+    } finally {
+      _isLoading = false;
+      notifyListeners();
+    }
+  }
 }
