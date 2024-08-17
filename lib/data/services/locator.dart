@@ -3,7 +3,7 @@ import 'package:openViewF1/data/repositories/session_repo.dart';
 
 final GetIt locator = GetIt.instance;
 
-void setUpLocator() {
+void setUpRepoLocator() {
   locator.registerFactory<SessionRepo>(
     () => SessionRepoImpl(),
   );
