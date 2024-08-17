@@ -2,6 +2,7 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:openViewF1/helpers/constants.dart';
 
 class Session {
   int? circuitKey;
@@ -83,26 +84,26 @@ class Session {
   }
 }
 
-class SessionCard extends StatelessWidget {
-  const SessionCard({
+class SessionListItem extends StatelessWidget {
+  final Session data;
+  
+  const SessionListItem({
     super.key,
-    required this.session,
+    required this.data,
   });
-
-  final Session session;
 
   @override
   Widget build(BuildContext context) {
     return InkWell(
       onTap: () {},
       child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: 16, horizontal: 8),
+        padding: const EdgeInsets.symmetric(vertical: pad16, horizontal: pad8),
         child: Row(
           children: [
             Card(
               elevation: 5,
               child: Image.asset(
-                'assets/flags/${session.countryCode}.png',
+                '$imageAssetPath/${data.countryCode}.png',
                 fit: BoxFit.cover,
                 height: 70,
                 width: 100,
@@ -110,17 +111,17 @@ class SessionCard extends StatelessWidget {
             ),
             Expanded(
               child: Padding(
-                padding: const EdgeInsets.only(left: 16),
+                padding: const EdgeInsets.only(left: pad16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
                       overflow: TextOverflow.ellipsis,
-                      '${session.countryName}',
+                      '${data.countryName}',
                       style: const TextStyle(fontSize: 24),
                     ),
-                    Text('${session.circuitShortName}'),
-                    Text(DateFormat.MMMd().format(session.dateStart!)),
+                    Text('${data.circuitShortName}'),
+                    Text(DateFormat.MMMd().format(data.dateStart!)),
                   ],
                 ),
               ),

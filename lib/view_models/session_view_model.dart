@@ -16,7 +16,7 @@ class SessionViewModel extends ChangeNotifier {
   Future<void> fetchSessions() async {
     _isLoading = true;
     try {
-      _sessions = await sessionRepo.getSessions();
+      _sessions = await sessionRepo.getAll();
     } catch (e) {
       rethrow;
     } finally {

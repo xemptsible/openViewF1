@@ -1,7 +1,9 @@
 import 'dart:math';
 
 import 'package:flutter/material.dart';
+import 'package:openViewF1/data/models/meeting.dart';
 import 'package:openViewF1/data/models/session.dart';
+import 'package:openViewF1/view_models/meeting_view_model.dart';
 import 'package:openViewF1/view_models/session_view_model.dart';
 import 'package:openViewF1/helpers/constants.dart';
 import 'package:provider/provider.dart';
@@ -14,27 +16,38 @@ class Home extends StatefulWidget {
 }
 
 class _HomeWidget extends State<Home> {
-  late SessionViewModel sessionViewModel;
+  late MeetingViewModel meetingViewModel;
 
   @override
   void initState() {
     super.initState();
-    sessionViewModel = Provider.of<SessionViewModel>(context, listen: false);
-    sessionViewModel.fetchSessions();
+    meetingViewModel = Provider.of<MeetingViewModel>(context, listen: false);
+    meetingViewModel.fetchMeetings();
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBar(
+        centerTitle: true,
         title: const Text('OpenViewF1'),
         actions: [
-          IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
+          // IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
           MenuAnchor(
             menuChildren: <Widget>[
               // TODO: Create a swap view button
-              MenuItemButton(onPressed: () {}, child: const Text('Grid')),
-              MenuItemButton(onPressed: () {}, child: const Text('Filter by')),
+              MenuItemButton(
+                  onPressed: () {},
+                  leadingIcon: const Icon(Icons.grid_view_sharp),
+                  child: const Text('Grid View')),
+              MenuItemButton(
+                  onPressed: () {},
+                  leadingIcon: const Icon(Icons.filter_alt),
+                  child: const Text('Filter')),
+              MenuItemButton(
+                  onPressed: () {},
+                  leadingIcon: const Icon(Icons.settings),
+                  child: const Text('Settings')),
             ],
             builder: (context, controller, child) {
               return IconButton(
@@ -46,7 +59,7 @@ class _HomeWidget extends State<Home> {
           )
         ],
       ),
-      body: Consumer<SessionViewModel>(
+      body: Consumer<MeetingViewModel>(
         builder: (context, viewModel, child) {
           return viewModel.isLoading
               ? const Center(
@@ -55,9 +68,9 @@ class _HomeWidget extends State<Home> {
               : ListView.separated(
                   separatorBuilder: (context, index) =>
                       const Divider(height: 0),
-                  itemCount: viewModel.sessions.length,
+                  itemCount: viewModel.meetings.length,
                   itemBuilder: (context, index) {
-                    return SessionCard(session: viewModel.sessions[index]);
+                    return MeetingListItem(data: viewModel.meetings[index]);
                   },
                 );
         },
