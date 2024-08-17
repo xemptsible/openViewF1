@@ -17,14 +17,17 @@ class SessionRepoImpl extends SessionRepo {
       'session_name': 'Race',
     };
 
-    final response = await ApiClient.instance
-        .get('/sessions', queryParams: queryParams ?? defaultQueryParams);
-
-    if (response != null) {
-      list = (jsonDecode(response) as List)
-          .map((e) => Session.fromJson(e))
-          .toList();
-    }
+    await ApiClient.instance
+        .get('/sessions', queryParams: queryParams ?? defaultQueryParams)
+        .then(
+      (json) {
+        json != null
+            ? list = (jsonDecode(json) as List)
+                .map((e) => Session.fromJson(e))
+                .toList()
+            : list;
+      },
+    );
 
     return list;
   }
