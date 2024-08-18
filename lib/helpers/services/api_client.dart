@@ -27,13 +27,10 @@ class ApiClient {
     try {
       final Response response =
           await _dio.get(path, queryParameters: queryParams);
-      if (response.statusCode == 200) {
-        return jsonEncode(response.data);
-      }
-    } on DioException catch (e) {
-      var exception = DioExceptionHandler.throwError(e);
-      throw exception.errorMsg;
+          
+      return jsonEncode(response.data);
+    } on DioException {
+      rethrow;
     }
-    return null;
   }
 }

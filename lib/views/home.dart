@@ -65,14 +65,30 @@ class _HomeWidget extends State<Home> {
               ? const Center(
                   child: CircularProgressIndicator(),
                 )
-              : ListView.separated(
-                  separatorBuilder: (context, index) =>
-                      const Divider(height: 0),
-                  itemCount: viewModel.meetings.length,
-                  itemBuilder: (context, index) {
-                    return MeetingListItem(data: viewModel.meetings[index]);
-                  },
-                );
+              : viewModel.errorMsg != "" && viewModel.meetings.isEmpty
+                  ? Center(
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.center,
+                        children: [
+                          Text(viewModel.errorMsg),
+                          OutlinedButton(
+                            onPressed: () {
+                              viewModel.fetchMeetings();
+                              viewModel.errorMsg = "";
+                            },
+                            child: const Text('Retry'),
+                          )
+                        ],
+                      ),
+                    )
+                  : ListView.separated(
+                      separatorBuilder: (context, index) =>
+                          const Divider(height: 0),
+                      itemCount: viewModel.meetings.length,
+                      itemBuilder: (context, index) {
+                        return MeetingListItem(data: viewModel.meetings[index]);
+                      },
+                    );
         },
       ),
     );
