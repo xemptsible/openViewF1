@@ -1,22 +1,19 @@
 import 'package:flutter/material.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:get_storage/get_storage.dart';
+import 'package:go_router/go_router.dart';
 import 'package:openViewF1/data/repositories/meeting_repo.dart';
 import 'package:openViewF1/data/repositories/session_repo.dart';
 import 'package:openViewF1/helpers/locator.dart';
 import 'package:openViewF1/helpers/routers.dart';
 import 'package:openViewF1/view_models/session_view_model.dart';
 import 'package:openViewF1/view_models/meeting_view_model.dart';
-import 'package:openViewF1/views/home.dart';
 import 'package:provider/provider.dart';
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();
 
   await GetStorage.init();
-
-  initGoRouter();
-
   setUpRepoLocator();
 
   runApp(
@@ -42,7 +39,7 @@ class MainApp extends StatelessWidget {
   @override
   Widget build(BuildContext context) {
     return MaterialApp.router(
-      routerConfig: goRouter,
+      routerConfig: Routers.goRouterInstance.initGoRouter(),
       // Theme config for FlexColorScheme version 7.3.x. Make sure you use
       // same or higher package version, but still same major version. If you
       // use a lower package version, some properties may not be supported.

@@ -3,7 +3,6 @@ import 'dart:convert';
 import 'dart:io';
 
 import 'package:dio/dio.dart';
-import 'package:openViewF1/helpers/services/dio_exception_handler.dart';
 import 'package:openViewF1/helpers/constants.dart';
 
 class ApiClient {
@@ -27,7 +26,6 @@ class ApiClient {
     try {
       final Response response =
           await _dio.get(path, queryParameters: queryParams);
-          
       return jsonEncode(response.data);
     } on DioException {
       rethrow;

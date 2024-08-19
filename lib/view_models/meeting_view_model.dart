@@ -9,51 +9,32 @@ class MeetingViewModel extends ChangeNotifier {
 
   MeetingViewModel({required this.meetingRepo});
 
-  bool _isLoading = false;
+  bool isLoading = false;
+  List<Meeting> meetings = [];
+  String errorMsg = "";
 
-  bool get isLoading => _isLoading;
-
-  set isLoading(bool value) {
-    _isLoading = value;
-  }
-
-  List<Meeting> _meetings = [];
-
-  List<Meeting> get meetings => _meetings;
-
-  set meeting(List<Meeting> value) {
-    _meetings = value;
-  }
-
-  String _errorMsg = "";
-
-  String get errorMsg => _errorMsg;
-
-  set errorMsg(String value) {
-    _errorMsg = value;
-  }
 
   Future<void> fetchMeetings() async {
-    _isLoading = true;
+    isLoading = true;
     try {
-      _meetings = await meetingRepo.getAll();
+      meetings = await meetingRepo.getAll();
     } on DioException catch (e) {
-      _errorMsg = DioExceptionHandler.throwError(e).toString();
+      errorMsg = DioExceptionHandler.throwError(e).toString();
       notifyListeners();
     } finally {
-      _isLoading = false;
+      isLoading = false;
       notifyListeners();
     }
   }
 
   Future<void> filterMeetings(dynamic queryParams) async {
-    _isLoading = true;
+    isLoading = true;
     try {
-      _meetings = await meetingRepo.getWithFilter(queryParams) as List<Meeting>;
+      meetings = await meetingRepo.getWithFilter(queryParams) as List<Meeting>;
     } on DioException catch (e) {
-      _errorMsg = DioExceptionHandler.throwError(e).toString();
+      errorMsg = DioExceptionHandler.throwError(e).toString();
     } finally {
-      _isLoading = false;
+      isLoading = false;
       notifyListeners();
     }
   }

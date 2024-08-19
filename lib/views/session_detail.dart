@@ -1,5 +1,4 @@
 import 'package:flutter/material.dart';
-import 'package:openViewF1/data/models/meeting.dart';
 import 'package:openViewF1/view_models/session_view_model.dart';
 import 'package:provider/provider.dart';
 

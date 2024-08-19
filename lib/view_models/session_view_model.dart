@@ -7,32 +7,29 @@ class SessionViewModel extends ChangeNotifier {
 
   SessionViewModel({required this.sessionRepo});
 
-  bool _isLoading = false;
-  List<Session> _sessions = [];
-
-  List<Session> get sessions => _sessions;
-  bool get isLoading => _isLoading;
+  bool isLoading = false;
+  List<Session> sessions = [];
 
   Future<void> fetchSessions() async {
-    _isLoading = true;
+    isLoading = true;
     try {
-      _sessions = await sessionRepo.getAll();
+      sessions = await sessionRepo.getAll();
     } catch (e) {
       rethrow;
     } finally {
-      _isLoading = false;
+      isLoading = false;
       notifyListeners();
     }
   }
 
   Future<void> fetchSessionsByQuery(queryParams) async {
-    _isLoading = true;
+    isLoading = true;
     try {
-      _sessions = await sessionRepo.getWithFilter(queryParams) as List<Session>;
+      sessions = await sessionRepo.getWithFilter(queryParams) as List<Session>;
     } catch (e) {
       rethrow;
     } finally {
-      _isLoading = false;
+      isLoading = false;
       notifyListeners();
     }
   }

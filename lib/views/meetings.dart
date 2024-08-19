@@ -61,34 +61,34 @@ class _HomeWidget extends State<Home> {
       ),
       body: Consumer<MeetingViewModel>(
         builder: (context, viewModel, child) {
-          return viewModel.isLoading
-              ? const Center(
-                  child: CircularProgressIndicator(),
-                )
-              : viewModel.errorMsg != "" && viewModel.meetings.isEmpty
-                  ? Center(
-                      child: Column(
-                        mainAxisAlignment: MainAxisAlignment.center,
-                        children: [
-                          Text(viewModel.errorMsg),
-                          OutlinedButton(
-                            onPressed: () {
-                              viewModel.fetchMeetings();
-                              viewModel.errorMsg = "";
-                            },
-                            child: const Text('Retry'),
-                          )
-                        ],
-                      ),
-                    )
-                  : ListView.separated(
-                      separatorBuilder: (context, index) =>
-                          const Divider(height: 0),
-                      itemCount: viewModel.meetings.length,
-                      itemBuilder: (context, index) {
-                        return MeetingListItem(data: viewModel.meetings[index]);
-                      },
-                    );
+          if (viewModel.isLoading) {
+            return const Center(
+              child: CircularProgressIndicator(),
+            );
+          } else if (viewModel.errorMsg != "" && viewModel.meetings.isEmpty) {
+            return Center(
+              child: Column(
+                mainAxisAlignment: MainAxisAlignment.center,
+                children: [
+                  Text(viewModel.errorMsg),
+                  OutlinedButton(
+                    onPressed: () {
+                      viewModel.fetchMeetings();
+                      viewModel.errorMsg = "";
+                    },
+                    child: const Text('Retry'),
+                  )
+                ],
+              ),
+            );
+          }
+          return ListView.separated(
+            separatorBuilder: (context, index) => const Divider(height: 0),
+            itemCount: viewModel.meetings.length,
+            itemBuilder: (context, index) {
+              return MeetingListItem(data: viewModel.meetings[index]);
+            },
+          );
         },
       ),
     );
