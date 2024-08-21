@@ -1,6 +1,6 @@
 import 'package:go_router/go_router.dart';
-import 'package:openViewF1/views/meetings.dart';
-import 'package:openViewF1/views/session.dart';
+import 'package:openViewF1/views/meetings_view.dart';
+import 'package:openViewF1/views/session_view.dart';
 
 class Routers {
   Routers._();

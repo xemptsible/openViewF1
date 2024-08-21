@@ -19,7 +19,7 @@ class _SessionState extends State<SessionDetail> {
   void initState() {
     super.initState();
     sessionViewModel = Provider.of<SessionViewModel>(context, listen: false);
-    sessionViewModel.fetchSessionsByQuery(widget.queryParams);
+    sessionViewModel.fetchDataWithQuery(widget.queryParams);
   }
 
   @override
@@ -77,7 +77,7 @@ class _SessionState extends State<SessionDetail> {
                   Text(viewModel.errorMsg),
                   OutlinedButton(
                     onPressed: () {
-                      viewModel.fetchSessionsByQuery(widget.queryParams);
+                      viewModel.fetchDataWithQuery(widget.queryParams);
                       viewModel.errorMsg = "";
                     },
                     child: const Text('Retry'),

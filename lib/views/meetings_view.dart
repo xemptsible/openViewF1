@@ -17,7 +17,7 @@ class _HomeWidget extends State<Home> {
   void initState() {
     super.initState();
     meetingViewModel = Provider.of<MeetingViewModel>(context, listen: false);
-    meetingViewModel.fetchMeetings();
+    meetingViewModel.fetchData();
   }
 
   @override
@@ -73,7 +73,7 @@ class _HomeWidget extends State<Home> {
                 Text(viewModel.errorMsg),
                 OutlinedButton(
                   onPressed: () {
-                    viewModel.fetchMeetings();
+                    viewModel.fetchData();
                     viewModel.errorMsg = "";
                   },
                   child: const Text('Retry'),
