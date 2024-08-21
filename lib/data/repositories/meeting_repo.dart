@@ -8,7 +8,7 @@ import 'package:openViewF1/helpers/services/api_client.dart';
 //   Future<List<Meeting>> getMeetings({dynamic queryParams});
 // }
 
-class MeetingRepo extends Repository {
+class MeetingRepo implements Repository {
   @override
   Future<List<Meeting>> getAll() async {
     List<Meeting> list = [];

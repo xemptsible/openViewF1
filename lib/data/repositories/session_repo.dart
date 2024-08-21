@@ -4,7 +4,7 @@ import 'package:openViewF1/data/models/session.dart';
 import 'package:openViewF1/data/repositories/.repository.dart';
 import 'package:openViewF1/helpers/services/api_client.dart';
 
-class SessionRepo extends Repository {
+class SessionRepo implements Repository {
   @override
   Future<List<Session>> getAll() async {
     List<Session> list = [];
