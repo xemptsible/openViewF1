@@ -3,8 +3,9 @@ import 'package:flutter/material.dart';
 import 'package:openViewF1/data/models/session.dart';
 import 'package:openViewF1/data/repositories/session_repo.dart';
 import 'package:openViewF1/helpers/services/dio_exception_handler.dart';
+import 'package:openViewF1/view_models/.view_model.dart';
 
-class SessionViewModel extends ChangeNotifier {
+class SessionViewModel extends ChangeNotifier implements ViewModel {
   final SessionRepo sessionRepo;
 
   SessionViewModel({required this.sessionRepo});
@@ -13,7 +14,8 @@ class SessionViewModel extends ChangeNotifier {
   List<Session> sessions = [];
   String errorMsg = "";
 
-  Future<void> fetchSessions() async {
+  @override
+  Future<void> fetchData() async {
     isLoading = true;
     try {
       sessions.clear();
@@ -28,7 +30,8 @@ class SessionViewModel extends ChangeNotifier {
     }
   }
 
-  Future<void> fetchSessionsByQuery(queryParams) async {
+  @override
+  Future<void> fetchDataWithQuery(queryParams) async {
     isLoading = true;
     try {
       sessions.clear();
