@@ -29,8 +29,25 @@ class MeetingRepo extends Repository {
   }
 
   @override
-  Future<List> getWithFilter(queryParams) {
-    // TODO: implement getWithFilter
-    throw UnimplementedError();
+  Future<List<Meeting>> getWithFilter({queryParams}) async {
+    List<Meeting> list = [];
+
+    dynamic defaultQueryParams = {
+      'year': DateTime.now().year.toString(),
+    };
+
+    await ApiClient.instance
+        .get('/sessions', queryParams: queryParams ?? defaultQueryParams)
+        .then(
+      (json) {
+        json != null
+            ? list = (jsonDecode(json) as List)
+                .map((e) => Meeting.fromJson(e))
+                .toList()
+            : list;
+      },
+    );
+
+    return list;
   }
 }

@@ -91,31 +91,47 @@ class MeetingListItem extends StatelessWidget {
         padding: const EdgeInsets.symmetric(vertical: pad16, horizontal: pad8),
         child: Row(
           children: [
-            Card(
-              elevation: 5,
-              child: Image.asset(
-                '$imageAssetPath/${data.countryCode}.png',
-                fit: BoxFit.cover,
-                height: 70,
-                width: 100,
-              ),
+            Expanded(
+              flex: 1,
+              child: Card(
+                  elevation: 3,
+                  child: Padding(
+                    padding: const EdgeInsets.all(pad8),
+                    child: Column(
+                      children: [
+                        Text(DateFormat.MMM().format(data.dateStart!)),
+                        Text(DateFormat.d().format(data.dateStart!))
+                      ],
+                    ),
+                  )
+                  // Image.asset(
+                  //   '$imageAssetPath/${data.countryCode}.png',
+                  //   fit: BoxFit.cover,
+                  //   height: 80,
+                  // ),
+                  ),
             ),
             Expanded(
+              flex: 4,
               child: Padding(
-                padding: const EdgeInsets.only(left: pad16),
+                padding: const EdgeInsets.symmetric(horizontal: pad16),
                 child: Column(
                   crossAxisAlignment: CrossAxisAlignment.start,
                   children: [
                     Text(
-                      overflow: TextOverflow.clip,
                       '${data.countryName}',
                       style: const TextStyle(
-                        fontSize: 24,
+                        fontSize: 21,
                         fontWeight: FontWeight.w600,
                       ),
                     ),
-                    Text('${data.meetingName}'),
-                    Text(DateFormat.MMMd().format(data.dateStart!)),
+                    Text(
+                      '${data.circuitShortName}',
+                    ),
+                    Text(
+                      DateFormat(DateFormat.HOUR24_MINUTE)
+                          .format(data.dateStart!),
+                    ),
                   ],
                 ),
               ),

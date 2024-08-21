@@ -29,7 +29,7 @@ class SessionRepo extends Repository {
   }
 
   @override
-  Future<List> getWithFilter(queryParams) async {
+  Future<List<Session>> getWithFilter({queryParams}) async {
     List<Session> list = [];
 
     dynamic defaultQueryParams = {

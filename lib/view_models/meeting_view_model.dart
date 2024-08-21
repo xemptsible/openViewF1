@@ -13,7 +13,6 @@ class MeetingViewModel extends ChangeNotifier {
   List<Meeting> meetings = [];
   String errorMsg = "";
 
-
   Future<void> fetchMeetings() async {
     isLoading = true;
     try {
@@ -27,12 +26,14 @@ class MeetingViewModel extends ChangeNotifier {
     }
   }
 
-  Future<void> filterMeetings(dynamic queryParams) async {
+  Future<void> filterMeetings(queryParams) async {
     isLoading = true;
     try {
-      meetings = await meetingRepo.getWithFilter(queryParams) as List<Meeting>;
+      meetings.clear();
+      meetings = await meetingRepo.getWithFilter(queryParams: queryParams);
     } on DioException catch (e) {
       errorMsg = DioExceptionHandler.throwError(e).toString();
+      notifyListeners();
     } finally {
       isLoading = false;
       notifyListeners();

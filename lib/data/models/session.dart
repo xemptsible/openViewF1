@@ -1,7 +1,9 @@
 import 'dart:convert';
 
+import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
 import 'package:intl/intl.dart';
+import 'package:openViewF1/data/models/position.dart';
 import 'package:openViewF1/helpers/constants.dart';
 
 class Session {
@@ -86,7 +88,7 @@ class Session {
 
 class SessionListItem extends StatelessWidget {
   final Session data;
-  
+
   const SessionListItem({
     super.key,
     required this.data,
@@ -94,39 +96,45 @@ class SessionListItem extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return InkWell(
-      onTap: () {},
-      child: Padding(
-        padding: const EdgeInsets.symmetric(vertical: pad16, horizontal: pad8),
-        child: Row(
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: pad8),
+      child: Card.outlined(
+        clipBehavior: Clip.antiAlias,
+        child: Column(
+          crossAxisAlignment: CrossAxisAlignment.start,
           children: [
-            Card(
-              elevation: 5,
-              child: Image.asset(
-                '$imageAssetPath/${data.countryCode}.png',
-                fit: BoxFit.cover,
-                height: 70,
-                width: 100,
-              ),
-            ),
-            Expanded(
+            Center(
               child: Padding(
-                padding: const EdgeInsets.only(left: pad16),
-                child: Column(
-                  crossAxisAlignment: CrossAxisAlignment.start,
-                  children: [
-                    Text(
-                      overflow: TextOverflow.ellipsis,
-                      '${data.countryName}',
-                      style: const TextStyle(fontSize: 24),
-                    ),
-                    Text('${data.circuitShortName}'),
-                    Text(DateFormat.MMMd().format(data.dateStart!)),
-                  ],
+                padding: const EdgeInsets.all(pad8),
+                child: Text(
+                  '${data.sessionName}',
                 ),
               ),
             ),
-            const Icon(Icons.arrow_forward),
+            const Divider(height: 0),
+            const Top3Header(),
+            const SessionTop3(),
+            const SessionTop3(),
+            const SessionTop3(),
+            const Divider(height: 0),
+            InkWell(
+              onTap: () {},
+              child: Ink(
+                color: Theme.of(context).secondaryHeaderColor,
+                child: Container(
+                  padding: const EdgeInsets.symmetric(vertical: pad8),
+                  child: const Row(
+                    mainAxisAlignment: MainAxisAlignment.center,
+                    children: [
+                      Text(
+                        'View results',
+                        style: TextStyle(fontWeight: FontWeight.bold),
+                      ),
+                    ],
+                  ),
+                ),
+              ),
+            )
           ],
         ),
       ),
