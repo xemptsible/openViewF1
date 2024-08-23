@@ -81,11 +81,11 @@ class MeetingListItem extends StatelessWidget {
     return InkWell(
       onTap: () {
         dynamic queryParams = {
-          'country_name': data.countryName,
           'year': data.year.toString(),
+          'country_name': data.countryName,
         };
-        context.go('/session/${data.year}/${data.countryName!.toLowerCase()}',
-            extra: queryParams);
+        context.goNamed('session',
+            queryParameters: queryParams);
       },
       child: Padding(
         padding: const EdgeInsets.symmetric(vertical: pad16, horizontal: pad8),

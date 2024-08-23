@@ -1,8 +1,7 @@
 import 'dart:convert';
 
-import 'package:flex_color_scheme/flex_color_scheme.dart';
 import 'package:flutter/material.dart';
-import 'package:intl/intl.dart';
+import 'package:go_router/go_router.dart';
 import 'package:openViewF1/data/models/position.dart';
 import 'package:openViewF1/helpers/constants.dart';
 
@@ -118,7 +117,9 @@ class SessionListItem extends StatelessWidget {
             const SessionTop3(),
             const Divider(height: 0),
             InkWell(
-              onTap: () {},
+              onTap: () {
+                context.goNamed('result');
+              },
               child: Ink(
                 color: Theme.of(context).secondaryHeaderColor,
                 child: Container(
@@ -141,25 +142,3 @@ class SessionListItem extends StatelessWidget {
     );
   }
 }
-
-// class APISessions {
-//   Future<List<Session>> getSessions({dynamic queryParams}) async {
-//     List<Session> list = [];
-
-//     dynamic defaultQueryParams = {
-//       'year': '2024',
-//       'session_name': 'Race',
-//     };
-
-//     final response = await ApiClient.instance
-//         .get('/sessions', queryParams: queryParams ?? defaultQueryParams);
-
-//     if (response != null) {
-//       list = (jsonDecode(response) as List)
-//           .map((e) => Session.fromJson(e))
-//           .toList();
-//     }
-
-//     return list;
-//   }
-// }

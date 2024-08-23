@@ -1,5 +1,6 @@
 import 'package:go_router/go_router.dart';
 import 'package:openViewF1/views/meetings_view.dart';
+import 'package:openViewF1/views/session_result_view.dart';
 import 'package:openViewF1/views/session_view.dart';
 
 class Routers {
@@ -12,13 +13,21 @@ class Routers {
       routes: <RouteBase>[
         GoRoute(
           path: '/',
-          builder: (context, state) => const Home(),
+          builder: (context, state) => const MeetingsView(),
           routes: <RouteBase>[
             GoRoute(
-              path: 'session/:year/:country',
-              builder: (context, state) => SessionDetail(
-                queryParams: state.extra!,
-              ),
+              name: 'session',
+              path: 'session',
+              builder: (context, state) {
+                return SessionView(queryParams: state.uri.queryParameters);
+              },
+              routes: <RouteBase>[
+                GoRoute(
+                  name: 'result',
+                  path: 'result',
+                  builder: (context, state) => const SessionResultView(),
+                )
+              ],
             ),
           ],
         ),
