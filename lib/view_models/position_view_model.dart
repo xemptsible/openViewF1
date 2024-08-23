@@ -13,4 +13,9 @@ class PositionViewModel extends ChangeNotifier implements ViewModel {
     // TODO: implement fetchDataWithQuery
     throw UnimplementedError();
   }
+
+  Future<void> fetchTop3(queryParams) {
+    // TODO: implement fetchDataWithQuery
+    throw UnimplementedError();
+  }
 }

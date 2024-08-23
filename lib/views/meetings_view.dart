@@ -44,12 +44,7 @@ class MeetingState extends State<MeetingsView> {
           view = changeViewType(view);
         }),
       ),
-      body: view == ViewType.list
-          ? _uiListOfMeetings()
-          : const Center(
-              // TODO: Implement grid of F1 meetings
-              child: Text('Placeholder grid'),
-            ),
+      body: view == ViewType.list ? _uiListOfMeetings() : _uiGridOfMeetings(),
     );
   }
 
@@ -86,6 +81,49 @@ class MeetingState extends State<MeetingsView> {
           itemCount: viewModel.meetings.length,
           itemBuilder: (context, index) {
             return MeetingListItem(data: viewModel.meetings[index]);
+          },
+        );
+      },
+    );
+  }
+
+  Widget _uiGridOfMeetings() {
+    return Consumer<MeetingViewModel>(
+      builder: (context, viewModel, child) {
+        if (viewModel.isLoading) {
+          return const Center(
+            child: CircularProgressIndicator(),
+          );
+        } else if (viewModel.errorMsg != "" && viewModel.meetings.isEmpty) {
+          return Center(
+            child: Column(
+              mainAxisAlignment: MainAxisAlignment.center,
+              children: [
+                Text(viewModel.errorMsg),
+                OutlinedButton(
+                  onPressed: () {
+                    viewModel.fetchData();
+                    viewModel.errorMsg = "";
+                  },
+                  child: const Text('Retry'),
+                )
+              ],
+            ),
+          );
+        } else if (viewModel.meetings.isEmpty) {
+          return const Center(
+            child: Text("There's nothing here. Please fix your filters"),
+          );
+        }
+        return GridView.builder(
+          gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
+            crossAxisCount: 2,
+            childAspectRatio: 0.85
+          ),
+          padding: const EdgeInsets.all(pad8),
+          itemCount: viewModel.meetings.length,
+          itemBuilder: (context, index) {
+            return MeetingGridItem(data: viewModel.meetings[index]);
           },
         );
       },

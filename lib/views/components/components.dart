@@ -79,11 +79,8 @@ class _AppBarDesignState extends State<AppBarDesign> {
             return IconButton(
               onPressed: () {
                 controller.isOpen ? controller.close() : controller.open();
-                setState(() {});
               },
               icon: const Icon(Icons.more_vert),
-              selectedIcon: const Icon(Icons.more_vert),
-              isSelected: controller.isOpen,
             );
           },
         )

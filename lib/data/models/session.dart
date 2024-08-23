@@ -2,6 +2,8 @@ import 'dart:convert';
 
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
+import 'package:intl/intl.dart';
+import 'package:openViewF1/data/models/driver.dart';
 import 'package:openViewF1/data/models/position.dart';
 import 'package:openViewF1/helpers/constants.dart';
 
@@ -87,10 +89,12 @@ class Session {
 
 class SessionListItem extends StatelessWidget {
   final Session data;
+  final List<Driver>? drivers;
 
   const SessionListItem({
     super.key,
     required this.data,
+    this.drivers,
   });
 
   @override
@@ -100,14 +104,26 @@ class SessionListItem extends StatelessWidget {
       child: Card.outlined(
         clipBehavior: Clip.antiAlias,
         child: Column(
-          crossAxisAlignment: CrossAxisAlignment.start,
+          crossAxisAlignment: CrossAxisAlignment.center,
           children: [
-            Center(
-              child: Padding(
-                padding: const EdgeInsets.all(pad8),
-                child: Text(
-                  '${data.sessionName}',
-                ),
+            Padding(
+              padding: const EdgeInsets.all(pad8),
+              child: Column(
+                children: [
+                  Text(
+                    '${data.sessionName}',
+                    style: const TextStyle(
+                        fontSize: 21, fontWeight: FontWeight.bold),
+                  ),
+                  Text(DateFormat.MMMEd().format(data.dateStart!)),
+                  Card.outlined(
+                    child: Padding(
+                      padding: const EdgeInsets.all(pad8),
+                      child: Text(
+                          '${DateFormat.Hm().format(data.dateStart!)} - ${DateFormat.Hm().format(data.dateEnd!)}'),
+                    ),
+                  ),
+                ],
               ),
             ),
             const Divider(height: 0),
@@ -129,7 +145,7 @@ class SessionListItem extends StatelessWidget {
                     children: [
                       Text(
                         'View results',
-                        style: TextStyle(fontWeight: FontWeight.bold),
+                        style: TextStyle(fontWeight: FontWeight.w500),
                       ),
                     ],
                   ),
@@ -140,5 +156,9 @@ class SessionListItem extends StatelessWidget {
         ),
       ),
     );
+  }
+
+  Widget _UiTop3() {
+    return ListView();
   }
 }
