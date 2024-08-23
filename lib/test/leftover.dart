@@ -15,4 +15,44 @@ class LocalJson {
 
     return list;
   }
+
+  void filterPositions() async {
+    final list = await LocalJson().getPositions();
+    List<Position> sortedList = [];
+
+    // print(list.lastIndexWhere(
+    //   (element) => element.position == 3,
+    // ));
+    // print(list[list.lastIndexWhere(
+    //   (element) => element.position == 3,
+    // )]);
+    // print(list.lastIndexWhere(
+    //   (element) => element.position == 2,
+    // ));
+    // print(list.lastIndexWhere(
+    //   (element) => element.position == 1,
+    // ));
+
+    // final top3 = sortedList.followedBy([
+    //   list[list.lastIndexWhere(
+    //     (element) => element.position == 3,
+    //   )],
+    //   list[list.lastIndexWhere(
+    //     (element) => element.position == 2,
+    //   )],
+    //   list[list.lastIndexWhere(
+    //     (element) => element.position == 1,
+    //   )]
+    // ]);
+
+    for (int i = 1; i <= 3; i++) {
+      sortedList.add(
+        list[list.lastIndexWhere(
+          (element) => element.position! == i,
+        )],
+      );
+    }
+
+    print(sortedList);
+  }
 }

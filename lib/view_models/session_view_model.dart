@@ -37,7 +37,6 @@ class SessionViewModel extends ChangeNotifier implements ViewModel {
       sessions.clear();
       sessions = await sessionRepo.getWithFilter(queryParams: queryParams);
       sessions = sessions.reversed.toList();
-      print(sessions);
     } on DioException catch (e) {
       errorMsg = DioExceptionHandler.throwError(e).toString();
       notifyListeners();
