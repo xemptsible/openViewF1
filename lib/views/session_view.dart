@@ -1,10 +1,12 @@
 import 'package:flutter/material.dart';
 import 'package:openViewF1/data/models/session.dart';
+import 'package:openViewF1/helpers/constants.dart';
 import 'package:openViewF1/view_models/session_view_model.dart';
+import 'package:openViewF1/views/components/components.dart';
 import 'package:provider/provider.dart';
 
-class SessionDetail extends StatefulWidget {
-  const SessionDetail({super.key, required this.queryParams});
+class SessionView extends StatefulWidget {
+  const SessionView({super.key, required this.queryParams});
 
   final dynamic queryParams;
 
@@ -12,8 +14,11 @@ class SessionDetail extends StatefulWidget {
   State<StatefulWidget> createState() => _SessionState();
 }
 
-class _SessionState extends State<SessionDetail> {
+class _SessionState extends State<SessionView> {
   late SessionViewModel sessionViewModel;
+
+  late ViewType viewType;
+  Widget? test;
 
   @override
   void initState() {
@@ -25,43 +30,21 @@ class _SessionState extends State<SessionDetail> {
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: Consumer<SessionViewModel>(builder: (context, viewModel, _) {
-          if (!viewModel.isLoading) {
-            return Text(viewModel.sessions.isNotEmpty
-                ? '${viewModel.sessions.first.countryName}'
-                : "Error!");
-          }
-          return const Text('Loading...');
-        }),
-        actions: [
-          // IconButton(onPressed: () {}, icon: const Icon(Icons.search)),
-          MenuAnchor(
-            menuChildren: <Widget>[
-              // TODO: Create a swap view button
-              MenuItemButton(
-                  onPressed: () {},
-                  leadingIcon: const Icon(Icons.grid_view_sharp),
-                  child: const Text('Grid View')),
-              MenuItemButton(
-                  onPressed: () {},
-                  leadingIcon: const Icon(Icons.filter_alt),
-                  child: const Text('Filter')),
-              MenuItemButton(
-                  onPressed: () {},
-                  leadingIcon: const Icon(Icons.settings),
-                  child: const Text('Settings')),
-            ],
-            builder: (context, controller, child) {
-              return IconButton(
-                  onPressed: () {
-                    controller.isOpen ? controller.close() : controller.open();
-                  },
-                  icon: const Icon(Icons.more_vert));
-            },
-          )
-        ],
+      appBar: AppBarDesign(
+        appBarTitle: Consumer<SessionViewModel>(
+          builder: (context, viewModel, _) {
+            if (!viewModel.isLoading) {
+              return Text(viewModel.sessions.isNotEmpty
+                  ? '${viewModel.sessions.first.countryName}'
+                  : "Error!");
+            }
+            return const Text('Loading...');
+          },
+        ),
+        viewTypeCallback: (ViewType viewType) {
+          viewType = changeViewType(viewType);
+          print(viewType);
+        },
       ),
       body: Consumer<SessionViewModel>(
         builder: (context, viewModel, child) {

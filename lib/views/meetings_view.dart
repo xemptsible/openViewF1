@@ -1,60 +1,55 @@
 import 'package:flutter/material.dart';
 import 'package:openViewF1/data/models/meeting.dart';
+import 'package:openViewF1/helpers/constants.dart';
 import 'package:openViewF1/view_models/meeting_view_model.dart';
+import 'package:openViewF1/views/components/components.dart';
 import 'package:provider/provider.dart';
 
-class Home extends StatefulWidget {
-  const Home({super.key});
+class MeetingsView extends StatefulWidget {
+  const MeetingsView({super.key});
 
   @override
-  State<StatefulWidget> createState() => _HomeWidget();
+  State<StatefulWidget> createState() => MeetingState();
 }
 
-class _HomeWidget extends State<Home> {
+class MeetingState extends State<MeetingsView> {
   late MeetingViewModel meetingViewModel;
+  late ViewType view;
+
+  // ViewType changeViewType(ViewType viewType) {
+  //   setState(() {
+  //     if (viewType == ViewType.list) {
+  //       viewType = ViewType.grid;
+  //     } else if (viewType == ViewType.grid) {
+  //       viewType = ViewType.list;
+  //     }
+  //   });
+  //   return viewType;
+  // }
 
   @override
   void initState() {
     super.initState();
     meetingViewModel = Provider.of<MeetingViewModel>(context, listen: false);
     meetingViewModel.fetchData();
+
+    view = ViewType.list;
   }
 
   @override
   Widget build(BuildContext context) {
     return Scaffold(
-      appBar: AppBar(
-        centerTitle: true,
-        title: const Text('OpenViewF1'),
-        actions: [
-          MenuAnchor(
-            menuChildren: <Widget>[
-              // TODO: Create a swap view button
-              MenuItemButton(
-                  onPressed: () {},
-                  leadingIcon: const Icon(Icons.grid_view_sharp),
-                  child: const Text('Grid View')),
-              MenuItemButton(
-                  onPressed: () {},
-                  leadingIcon: const Icon(Icons.filter_alt),
-                  child: const Text('Filter')),
-              MenuItemButton(
-                  onPressed: () {},
-                  leadingIcon: const Icon(Icons.settings),
-                  child: const Text('Settings')),
-            ],
-            builder: (context, controller, child) {
-              return IconButton(
-                onPressed: () {
-                  controller.isOpen ? controller.close() : controller.open();
-                },
-                icon: const Icon(Icons.more_vert),
-              );
-            },
-          )
-        ],
+      appBar: AppBarDesign(
+        viewTypeCallback: (p0) => setState(() {
+          view = changeViewType(view);
+        }),
       ),
-      body: _uiListOfMeetings(),
+      body: view == ViewType.list
+          ? _uiListOfMeetings()
+          : const Center(
+              // TODO: Implement grid of F1 meetings
+              child: Text('Placeholder grid'),
+            ),
     );
   }
 
@@ -80,6 +75,10 @@ class _HomeWidget extends State<Home> {
                 )
               ],
             ),
+          );
+        } else if (viewModel.meetings.isEmpty) {
+          return const Center(
+            child: Text("There's nothing here. Please fix your filters"),
           );
         }
         return ListView.separated(
