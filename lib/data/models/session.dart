@@ -127,10 +127,10 @@ class SessionListItem extends StatelessWidget {
               ),
             ),
             const Divider(height: 0),
-            const Top3Header(),
-            const SessionTop3(),
-            const SessionTop3(),
-            const SessionTop3(),
+            const ResultHeader(),
+            const ResultPositionPlaceholder(),
+            const ResultPositionPlaceholder(),
+            const ResultPositionPlaceholder(),
             const Divider(height: 0),
             InkWell(
               onTap: () {

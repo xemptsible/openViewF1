@@ -1,6 +1,7 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
+import 'package:openViewF1/data/models/driver.dart';
 import 'package:openViewF1/helpers/constants.dart';
 
 class Position {
@@ -45,8 +46,8 @@ class Position {
   }
 }
 
-class SessionTop3 extends StatelessWidget {
-  const SessionTop3({super.key});
+class ResultPositionPlaceholder extends StatelessWidget {
+  const ResultPositionPlaceholder({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -109,8 +110,8 @@ class SessionTop3 extends StatelessWidget {
   }
 }
 
-class Top3Header extends StatelessWidget {
-  const Top3Header({super.key});
+class ResultHeader extends StatelessWidget {
+  const ResultHeader({super.key});
 
   @override
   Widget build(BuildContext context) {
@@ -160,6 +161,79 @@ class Top3Header extends StatelessWidget {
             flex: 1,
             child: Text(
               'TEAM',
+            ),
+          ),
+        ],
+      ),
+    );
+  }
+}
+
+class SessionPositionItem extends StatelessWidget {
+  const SessionPositionItem({
+    super.key,
+    required this.data,
+    required this.driver,
+  });
+
+  final Position data;
+  final Driver driver;
+
+  @override
+  Widget build(BuildContext context) {
+    return Padding(
+      padding: const EdgeInsets.symmetric(horizontal: pad16, vertical: pad8),
+      child: Row(
+        children: [
+          Expanded(
+            flex: 1,
+            child: Text(
+              '${data.position}',
+              // textAlign: TextAlign.center,
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Text(
+              '${data.driverNumber}',
+              // textAlign: TextAlign.center,
+            ),
+          ),
+          Container(
+            margin: const EdgeInsets.only(right: pad8),
+            height: 15,
+            decoration: BoxDecoration(
+              borderRadius: BorderRadius.circular(pad4),
+              border: Border(
+                left: Divider.createBorderSide(
+                  context,
+                  color: Color(
+                    int.parse('${driver.teamColour}'),
+                  ),
+                  width: pad8,
+                ),
+              ),
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Text(
+              '${driver.nameAcronym}',
+              // textAlign: TextAlign.center,
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Text(
+              '${driver.countryCode}',
+              // textAlign: TextAlign.center,
+            ),
+          ),
+          Expanded(
+            flex: 1,
+            child: Text(
+              '${driver.teamName}',
+              // textAlign: TextAlign.center,
             ),
           ),
         ],
