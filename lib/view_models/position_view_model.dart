@@ -1,26 +1,25 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
-import 'package:openViewF1/data/models/session.dart';
-import 'package:openViewF1/data/repositories/session_repo.dart';
+import 'package:openViewF1/data/models/position.dart';
+import 'package:openViewF1/data/repositories/position_repo.dart';
 import 'package:openViewF1/helpers/services/dio_exception_handler.dart';
 import 'package:openViewF1/view_models/.view_model.dart';
 
-class SessionViewModel extends ChangeNotifier implements ViewModel {
-  final SessionRepo sessionRepo;
+class PositionViewModel extends ChangeNotifier implements ViewModel {
+  final PositionRepo positionRepo;
 
-  SessionViewModel({required this.sessionRepo});
+  PositionViewModel({required this.positionRepo});
 
   bool isLoading = false;
-  List<Session> sessions = [];
+  List<Position> positions = [];
   String errorMsg = "";
 
   @override
   Future<void> fetchData() async {
     isLoading = true;
     try {
-      sessions.clear();
-      sessions = await sessionRepo.getAll();
-      sessions = sessions.reversed.toList();
+      positions.clear();
+      positions = await positionRepo.getAll();
     } on DioException catch (e) {
       errorMsg = DioExceptionHandler.throwError(e).toString();
       notifyListeners();
@@ -34,9 +33,8 @@ class SessionViewModel extends ChangeNotifier implements ViewModel {
   Future<void> fetchDataWithQuery(queryParams) async {
     isLoading = true;
     try {
-      sessions.clear();
-      sessions = await sessionRepo.getWithFilter(queryParams: queryParams);
-      sessions = sessions.reversed.toList();
+      positions.clear();
+      positions = await positionRepo.getWithFilter(queryParams: queryParams);
     } on DioException catch (e) {
       errorMsg = DioExceptionHandler.throwError(e).toString();
       notifyListeners();
