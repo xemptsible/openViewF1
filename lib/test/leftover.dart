@@ -45,12 +45,14 @@ class LocalJson {
     //   )]
     // ]);
 
-    for (int i = 1; i <= 3; i++) {
-      sortedList.add(
-        list[list.lastIndexWhere(
-          (element) => element.position! == i,
-        )],
-      );
+    for (int i = 0; i < list.length; i++) {
+      if (!sortedList.contains(list[list.lastIndexWhere(
+        (element) => element.sessionKey == 9489 && element.position == 1,
+      )])) {
+        sortedList.add(list[list.lastIndexWhere(
+          (element) => element.sessionKey == 9489 && element.position == 1,
+        )]);
+      }
     }
 
     print(sortedList);

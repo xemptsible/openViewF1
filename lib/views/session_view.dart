@@ -1,6 +1,5 @@
 import 'package:flutter/material.dart';
 import 'package:openViewF1/data/models/session.dart';
-import 'package:openViewF1/helpers/constants.dart';
 import 'package:openViewF1/view_models/session_view_model.dart';
 import 'package:openViewF1/views/components/components.dart';
 import 'package:provider/provider.dart';
@@ -16,9 +15,6 @@ class SessionView extends StatefulWidget {
 
 class _SessionState extends State<SessionView> {
   late SessionViewModel sessionViewModel;
-
-  late ViewType viewType;
-  Widget? test;
 
   @override
   void initState() {
@@ -41,10 +37,6 @@ class _SessionState extends State<SessionView> {
             return const Text('Loading...');
           },
         ),
-        viewTypeCallback: (ViewType viewType) {
-          viewType = changeViewType(viewType);
-          print(viewType);
-        },
       ),
       body: Consumer<SessionViewModel>(
         builder: (context, viewModel, child) {
@@ -76,7 +68,9 @@ class _SessionState extends State<SessionView> {
           return ListView.builder(
             itemCount: viewModel.sessions.length,
             itemBuilder: (context, index) {
-              return SessionListItem(data: viewModel.sessions[index]);
+              return SessionListItem(
+                data: viewModel.sessions[index],
+              );
             },
           );
         },

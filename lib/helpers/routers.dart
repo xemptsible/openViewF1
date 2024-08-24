@@ -18,14 +18,15 @@ class Routers {
             GoRoute(
               name: 'session',
               path: 'session',
-              builder: (context, state) {
-                return SessionView(queryParams: state.uri.queryParameters);
-              },
+              builder: (context, state) =>
+                  SessionView(queryParams: state.uri.queryParameters),
               routes: <RouteBase>[
                 GoRoute(
                   name: 'result',
                   path: 'result',
-                  builder: (context, state) => const SessionResultView(),
+                  builder: (context, state) => SessionResultView(
+                    queryParams: state.uri.queryParameters,
+                  ),
                 )
               ],
             ),

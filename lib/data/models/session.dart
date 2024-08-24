@@ -3,8 +3,7 @@ import 'dart:convert';
 import 'package:flutter/material.dart';
 import 'package:go_router/go_router.dart';
 import 'package:intl/intl.dart';
-import 'package:openViewF1/data/models/driver.dart';
-import 'package:openViewF1/data/models/position.dart';
+import 'package:jiffy/jiffy.dart';
 import 'package:openViewF1/helpers/constants.dart';
 
 class Session {
@@ -87,15 +86,23 @@ class Session {
   }
 }
 
-class SessionListItem extends StatelessWidget {
+class SessionListItem extends StatefulWidget {
   final Session data;
-  final List<Driver>? drivers;
 
   const SessionListItem({
     super.key,
     required this.data,
-    this.drivers,
   });
+
+  @override
+  State<SessionListItem> createState() => _SessionListItemState();
+}
+
+class _SessionListItemState extends State<SessionListItem> {
+  @override
+  void initState() {
+    super.initState();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -111,30 +118,52 @@ class SessionListItem extends StatelessWidget {
               child: Column(
                 children: [
                   Text(
-                    '${data.sessionName}',
+                    '${widget.data.sessionName}',
                     style: const TextStyle(
                         fontSize: 21, fontWeight: FontWeight.bold),
                   ),
-                  Text(DateFormat.MMMEd().format(data.dateStart!)),
-                  Card.outlined(
-                    child: Padding(
-                      padding: const EdgeInsets.all(pad8),
-                      child: Text(
-                          '${DateFormat.Hm().format(data.dateStart!)} - ${DateFormat.Hm().format(data.dateEnd!)}'),
-                    ),
+                  Row(
+                    children: [
+                      Expanded(
+                        child: Card.outlined(
+                          child: Padding(
+                            padding: const EdgeInsets.all(pad4),
+                            child: Text(
+                              DateFormat.MMMEd().format(widget.data.dateStart!),
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                      ),
+                      Expanded(
+                        child: Card.outlined(
+                          child: Padding(
+                            padding: const EdgeInsets.all(pad4),
+                            child: Text(
+                              '${DateFormat.Hm().format(widget.data.dateStart!)} - ${DateFormat.Hm().format(widget.data.dateEnd!)}',
+                              textAlign: TextAlign.center,
+                            ),
+                          ),
+                        ),
+                      ),
+                    ],
                   ),
                 ],
               ),
             ),
             const Divider(height: 0),
-            const ResultHeader(),
-            const ResultPositionPlaceholder(),
-            const ResultPositionPlaceholder(),
-            const ResultPositionPlaceholder(),
-            const Divider(height: 0),
             InkWell(
               onTap: () {
-                context.goNamed('result');
+                dynamic queryParams = {
+                  'session_key': '${widget.data.sessionKey}',
+                  'date<':
+                      Jiffy.parseFromDateTime(widget.data.dateEnd!).format(),
+                  'date>': Jiffy.parseFromDateTime(widget.data.dateEnd!)
+                      .subtract(hours: 1)
+                      .format(),
+                };
+
+                context.goNamed('result', queryParameters: queryParams);
               },
               child: Ink(
                 color: Theme.of(context).secondaryHeaderColor,
@@ -156,9 +185,5 @@ class SessionListItem extends StatelessWidget {
         ),
       ),
     );
-  }
-
-  Widget _UiTop3() {
-    return ListView();
   }
 }

@@ -43,18 +43,4 @@ class PositionViewModel extends ChangeNotifier implements ViewModel {
       notifyListeners();
     }
   }
-
-  Future<void> fetchTop3(queryParams) async {
-    isLoading = true;
-    try {
-      positions.clear();
-      positions = await positionRepo.getTop3(queryParams);
-    } on DioException catch (e) {
-      errorMsg = DioExceptionHandler.throwError(e).toString();
-      notifyListeners();
-    } finally {
-      isLoading = false;
-      notifyListeners();
-    }
-  }
 }

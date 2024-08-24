@@ -1,7 +1,6 @@
 import 'dart:convert';
 
 import 'package:flutter/material.dart';
-import 'package:openViewF1/data/models/driver.dart';
 import 'package:openViewF1/helpers/constants.dart';
 
 class Position {
@@ -100,6 +99,7 @@ class ResultPositionPlaceholder extends StatelessWidget {
           const Expanded(
             flex: 1,
             child: Text(
+              overflow: TextOverflow.ellipsis,
               'Mercedes',
               // textAlign: TextAlign.center,
             ),
@@ -115,54 +115,54 @@ class ResultHeader extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Padding(
-      padding: const EdgeInsets.fromLTRB(16, 8, 16, 0),
+    return const Padding(
+      padding: EdgeInsets.fromLTRB(16, 8, 16, 0),
       child: Row(
         children: [
-          const Expanded(
+          Expanded(
             flex: 1,
             child: Text(
               'POS',
             ),
           ),
-          const Expanded(
+          Expanded(
             flex: 1,
             child: Text(
               'NO',
             ),
           ),
-          const Expanded(
-            flex: 1,
-            child: Text(
-              'DRIVER',
-            ),
-          ),
-          Container(
-            margin: const EdgeInsets.only(right: pad8),
-            height: 15,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(pad4),
-              border: Border(
-                left: Divider.createBorderSide(
-                  context,
-                  color: Colors.transparent,
-                  width: pad8,
-                ),
-              ),
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: Text(
-              'NATION',
-            ),
-          ),
-          const Expanded(
-            flex: 1,
-            child: Text(
-              'TEAM',
-            ),
-          ),
+          // const Expanded(
+          //   flex: 1,
+          //   child: Text(
+          //     'DRIVER',
+          //   ),
+          // ),
+          // Container(
+          //   margin: const EdgeInsets.only(right: pad8),
+          //   height: 15,
+          //   decoration: BoxDecoration(
+          //     borderRadius: BorderRadius.circular(pad4),
+          //     border: Border(
+          //       left: Divider.createBorderSide(
+          //         context,
+          //         color: Colors.transparent,
+          //         width: pad8,
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          // Expanded(
+          //   flex: 1,
+          //   child: Text(
+          //     'NATION',
+          //   ),
+          // ),
+          // Expanded(
+          //   flex: 1,
+          //   child: Text(
+          //     'TEAM',
+          //   ),
+          // ),
         ],
       ),
     );
@@ -173,11 +173,11 @@ class SessionPositionItem extends StatelessWidget {
   const SessionPositionItem({
     super.key,
     required this.data,
-    required this.driver,
+    // required this.driver,
   });
 
   final Position data;
-  final Driver driver;
+  // final Driver driver;
 
   @override
   Widget build(BuildContext context) {
@@ -199,43 +199,45 @@ class SessionPositionItem extends StatelessWidget {
               // textAlign: TextAlign.center,
             ),
           ),
-          Container(
-            margin: const EdgeInsets.only(right: pad8),
-            height: 15,
-            decoration: BoxDecoration(
-              borderRadius: BorderRadius.circular(pad4),
-              border: Border(
-                left: Divider.createBorderSide(
-                  context,
-                  color: Color(
-                    int.parse('${driver.teamColour}'),
-                  ),
-                  width: pad8,
-                ),
-              ),
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Text(
-              '${driver.nameAcronym}',
-              // textAlign: TextAlign.center,
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Text(
-              '${driver.countryCode}',
-              // textAlign: TextAlign.center,
-            ),
-          ),
-          Expanded(
-            flex: 1,
-            child: Text(
-              '${driver.teamName}',
-              // textAlign: TextAlign.center,
-            ),
-          ),
+          // Container(
+          //   margin: const EdgeInsets.only(right: pad8),
+          //   height: 15,
+          //   decoration: BoxDecoration(
+          //     borderRadius: BorderRadius.circular(pad4),
+          //     border: Border(
+          //       left: Divider.createBorderSide(
+          //         context,
+          //         color: Colors.blueAccent,
+          //         // Color(int.parse('FF${driver.teamColour}', radix: 16)),
+          //         width: pad8,
+          //       ),
+          //     ),
+          //   ),
+          // ),
+          // const Expanded(
+          //   flex: 1,
+          //   child: Text(
+          //     // '${driver.nameAcronym}',
+          //     'HAM'
+          //     // textAlign: TextAlign.center,
+          //   ),
+          // ),
+          // const Expanded(
+          //   flex: 1,
+          //   child: Text(
+          //     // '${driver.countryCode}',
+          //     'GBR'
+          //     // textAlign: TextAlign.center,
+          //   ),
+          // ),
+          // const Expanded(
+          //   flex: 1,
+          //   child: Text(
+          //     // '${driver.teamName}',
+          //     'Mercedes'
+          //     // textAlign: TextAlign.center,
+          //   ),
+          // ),
         ],
       ),
     );

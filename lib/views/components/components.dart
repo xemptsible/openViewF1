@@ -1,19 +1,17 @@
 import 'package:flutter/material.dart';
-import 'package:openViewF1/data/models/session.dart';
 import 'package:openViewF1/helpers/constants.dart';
-import 'package:openViewF1/views/meetings_view.dart';
 
 typedef ViewTypeCallback = void Function(ViewType viewType);
 
 class AppBarDesign extends StatefulWidget implements PreferredSizeWidget {
   const AppBarDesign({
     super.key,
-    required this.viewTypeCallback,
+    this.viewTypeCallback,
     this.appBarTitle,
   });
 
   final Widget? appBarTitle;
-  final Function viewTypeCallback;
+  final Function? viewTypeCallback;
 
   @override
   Size get preferredSize => const Size.fromHeight(kToolbarHeight);
@@ -24,7 +22,6 @@ class AppBarDesign extends StatefulWidget implements PreferredSizeWidget {
 
 class _AppBarDesignState extends State<AppBarDesign> {
   ViewType viewType = ViewType.list;
-
   late Widget? appBarTitle;
 
   @override
@@ -40,12 +37,11 @@ class _AppBarDesignState extends State<AppBarDesign> {
       actions: [
         MenuAnchor(
           menuChildren: <Widget>[
-            // TODO: Make it actually swap
             appBarTitle != null
                 ? const SizedBox.shrink()
                 : MenuItemButton(
                     onPressed: () {
-                      widget.viewTypeCallback(viewType);
+                      widget.viewTypeCallback!(viewType);
                       viewType = changeViewType(viewType);
                     },
                     leadingIcon: viewType == ViewType.list
