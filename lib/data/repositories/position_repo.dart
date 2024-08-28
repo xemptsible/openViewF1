@@ -29,6 +29,7 @@ class PositionRepo extends Repository {
   @override
   Future<List<Position>> getWithFilter({queryParams}) async {
     List<Position> list = [];
+    List<Position> result = [];
 
     dynamic defaultQueryParams = {
       'session_key': 'latest',
@@ -43,6 +44,15 @@ class PositionRepo extends Repository {
               .toList()
           : list;
     });
+
+    if (list != []) {
+      for (var i = 1; i <= 20; i++) {
+        result.add(list[list.lastIndexWhere(
+          (element) => element.position == i,
+        )]);
+      }
+      return result;
+    }
 
     return list;
   }

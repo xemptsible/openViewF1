@@ -38,15 +38,13 @@ class MeetingRepo implements Repository {
 
     await ApiClient.instance
         .get('/sessions', queryParams: queryParams ?? defaultQueryParams)
-        .then(
-      (json) {
-        json != null
-            ? list = (jsonDecode(json) as List)
-                .map((e) => Meeting.fromJson(e))
-                .toList()
-            : list;
-      },
-    );
+        .then((json) {
+      json != null
+          ? list = (jsonDecode(json) as List)
+              .map((e) => Meeting.fromJson(e))
+              .toList()
+          : list;
+    });
 
     return list;
   }

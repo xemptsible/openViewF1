@@ -156,11 +156,6 @@ class _SessionListItemState extends State<SessionListItem> {
               onTap: () {
                 dynamic queryParams = {
                   'session_key': '${widget.data.sessionKey}',
-                  'date<':
-                      Jiffy.parseFromDateTime(widget.data.dateEnd!).format(),
-                  'date>': Jiffy.parseFromDateTime(widget.data.dateEnd!)
-                      .subtract(hours: 1)
-                      .format(),
                 };
 
                 context.goNamed('result', queryParameters: queryParams);

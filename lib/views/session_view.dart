@@ -66,6 +66,7 @@ class _SessionState extends State<SessionView> {
             );
           }
           return ListView.builder(
+            physics: const NeverScrollableScrollPhysics(),
             itemCount: viewModel.sessions.length,
             itemBuilder: (context, index) {
               return SessionListItem(

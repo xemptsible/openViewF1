@@ -16,17 +16,6 @@ class MeetingState extends State<MeetingsView> {
   late MeetingViewModel meetingViewModel;
   late ViewType view;
 
-  // ViewType changeViewType(ViewType viewType) {
-  //   setState(() {
-  //     if (viewType == ViewType.list) {
-  //       viewType = ViewType.grid;
-  //     } else if (viewType == ViewType.grid) {
-  //       viewType = ViewType.list;
-  //     }
-  //   });
-  //   return viewType;
-  // }
-
   @override
   void initState() {
     super.initState();
@@ -118,7 +107,7 @@ class MeetingState extends State<MeetingsView> {
         return GridView.builder(
           gridDelegate: const SliverGridDelegateWithFixedCrossAxisCount(
             crossAxisCount: 2,
-            childAspectRatio: 0.85
+            childAspectRatio: 0.85,
           ),
           padding: const EdgeInsets.all(pad8),
           itemCount: viewModel.meetings.length,
