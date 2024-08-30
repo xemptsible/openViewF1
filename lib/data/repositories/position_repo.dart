@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:openViewF1/data/models/position.dart';
-import 'package:openViewF1/data/repositories/.repository.dart';
+import 'package:openViewF1/data/repositories/.repository_interface.dart';
 import 'package:openViewF1/helpers/services/api_client.dart';
 
-class PositionRepo extends Repository {
+class PositionRepo extends IRepository {
   @override
   Future<List<Position>> getAll() async {
     List<Position> list = [];

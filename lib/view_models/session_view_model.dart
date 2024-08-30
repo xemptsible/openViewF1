@@ -2,12 +2,13 @@ import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 
 import 'package:openViewF1/data/models/session.dart';
-import 'package:openViewF1/data/repositories/.repository.dart';
-import 'package:openViewF1/helpers/services/dio_exception_handler.dart';
-import 'package:openViewF1/view_models/.view_model.dart';
 
-class SessionViewModel extends ChangeNotifier implements ViewModel {
-  final Repository sessionRepo;
+import 'package:openViewF1/data/repositories/.repository_interface.dart';
+import 'package:openViewF1/helpers/services/dio_exception_handler.dart';
+import 'package:openViewF1/view_models/.view_model_interface.dart';
+
+class SessionViewModel extends ChangeNotifier implements IViewModel {
+  final IRepository sessionRepo;
 
   SessionViewModel({required this.sessionRepo});
 

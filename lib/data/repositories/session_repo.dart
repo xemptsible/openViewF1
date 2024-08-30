@@ -1,10 +1,10 @@
 import 'dart:convert';
 
 import 'package:openViewF1/data/models/session.dart';
-import 'package:openViewF1/data/repositories/.repository.dart';
+import 'package:openViewF1/data/repositories/.repository_interface.dart';
 import 'package:openViewF1/helpers/services/api_client.dart';
 
-class SessionRepo implements Repository {
+class SessionRepo implements IRepository {
   @override
   Future<List<Session>> getAll() async {
     List<Session> list = [];

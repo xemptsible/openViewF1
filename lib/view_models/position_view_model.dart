@@ -1,12 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:openViewF1/data/models/position.dart';
-import 'package:openViewF1/data/repositories/.repository.dart';
+import 'package:openViewF1/data/repositories/.repository_interface.dart';
 import 'package:openViewF1/helpers/services/dio_exception_handler.dart';
-import 'package:openViewF1/view_models/.view_model.dart';
+import 'package:openViewF1/view_models/.view_model_interface.dart';
 
-class PositionViewModel extends ChangeNotifier implements ViewModel {
-  final Repository positionRepo;
+class PositionViewModel extends ChangeNotifier implements IViewModel {
+  final IRepository positionRepo;
 
   PositionViewModel({required this.positionRepo});
 

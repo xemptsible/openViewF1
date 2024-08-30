@@ -1,12 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:openViewF1/data/models/meeting.dart';
-import 'package:openViewF1/data/repositories/.repository.dart';
-import 'package:openViewF1/helpers/services/dio_exception_handler.dart';
-import 'package:openViewF1/view_models/.view_model.dart';
 
-class MeetingViewModel extends ChangeNotifier implements ViewModel {
-  final Repository meetingRepo;
+import 'package:openViewF1/data/repositories/.repository_interface.dart';
+import 'package:openViewF1/helpers/services/dio_exception_handler.dart';
+import 'package:openViewF1/view_models/.view_model_interface.dart';
+
+class MeetingViewModel extends ChangeNotifier implements IViewModel {
+  final IRepository meetingRepo;
 
   MeetingViewModel({required this.meetingRepo});
 

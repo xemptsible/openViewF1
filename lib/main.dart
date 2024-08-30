@@ -1,5 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:flex_color_scheme/flex_color_scheme.dart';
+import 'package:get_it/get_it.dart';
 import 'package:hive_ce_flutter/adapters.dart';
 import 'package:openViewF1/data/repositories/driver_repo.dart';
 import 'package:openViewF1/data/repositories/meeting_repo.dart';
@@ -16,6 +17,9 @@ import 'package:provider/provider.dart';
 // Initialize a global GoRouter variable
 // so it doesn't get rebuilt on hot reload.
 final goRouter = Routers.goRouterInstance.initGoRouter();
+
+// Intialiaze a global GetIt instance
+final GetIt locator = GetIt.instance;
 
 void main() async {
   WidgetsFlutterBinding.ensureInitialized();

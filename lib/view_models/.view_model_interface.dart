@@ -1,4 +1,4 @@
-abstract class ViewModel {
+abstract class IViewModel {
   Future<void> fetchData();
   Future<void> fetchDataWithQuery(queryParams);
 }
