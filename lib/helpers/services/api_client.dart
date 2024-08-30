@@ -6,9 +6,7 @@ import 'package:dio/dio.dart';
 import 'package:openViewF1/helpers/constants.dart';
 
 class ApiClient {
-  ApiClient._();
-
-  static final instance = ApiClient._();
+  static final instance = ApiClient();
 
   final Dio _dio = Dio(
     BaseOptions(

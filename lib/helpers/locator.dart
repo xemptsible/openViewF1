@@ -1,4 +1,5 @@
 import 'package:get_it/get_it.dart';
+import 'package:openViewF1/data/repositories/.repository.dart';
 import 'package:openViewF1/data/repositories/driver_repo.dart';
 import 'package:openViewF1/data/repositories/meeting_repo.dart';
 import 'package:openViewF1/data/repositories/position_repo.dart';
@@ -10,6 +11,9 @@ final GetIt locator = GetIt.instance;
 
 // return a new instance of class every time we call Provider.of()
 void setUpRepoLocator() {
+  locator.registerFactory(
+    () => Repository,
+  );
   locator.registerFactory(
     () => SessionRepo(),
   );

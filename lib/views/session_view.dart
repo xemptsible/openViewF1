@@ -1,7 +1,7 @@
 import 'package:flutter/material.dart';
-import 'package:openViewF1/data/models/session.dart';
 import 'package:openViewF1/view_models/session_view_model.dart';
-import 'package:openViewF1/views/components/components.dart';
+import 'package:openViewF1/views/components/app_bar.dart';
+import 'package:openViewF1/views/components/session_components.dart';
 import 'package:provider/provider.dart';
 
 class SessionView extends StatefulWidget {

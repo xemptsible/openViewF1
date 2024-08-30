@@ -1,9 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
-
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:openViewF1/helpers/constants.dart';
 
 class Driver {
   String? broadcastName;
@@ -67,40 +62,4 @@ class Driver {
         "team_colour": teamColour,
         "team_name": teamName,
       };
-}
-
-class APIDriverInfo {
-  Future getDriverInfo({dynamic queryParams}) async {
-    List<Driver> data = [];
-    final dynamic defaultQueryParams = {
-      'session_key': 'latest',
-    };
-
-    Uri uri = Uri.https(
-      openF1Url,
-      '$version/drivers',
-      queryParams ?? defaultQueryParams,
-    );
-
-    try {
-      final response = await http.get(uri, headers: {
-        HttpHeaders.contentTypeHeader: ContentType.json.toString()
-      });
-      data = List.from(jsonDecode(response.body));
-    } on Exception {
-      rethrow;
-    }
-
-    return data;
-  }
-}
-
-class DriverWidget extends StatelessWidget {
-  const DriverWidget({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
-  }
 }

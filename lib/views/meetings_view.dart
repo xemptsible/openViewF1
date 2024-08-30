@@ -1,9 +1,10 @@
 import 'package:flutter/material.dart';
-import 'package:openViewF1/data/models/meeting.dart';
 import 'package:openViewF1/helpers/constants.dart';
 import 'package:openViewF1/view_models/meeting_view_model.dart';
-import 'package:openViewF1/views/components/components.dart';
+import 'package:openViewF1/views/components/app_bar.dart';
 import 'package:provider/provider.dart';
+
+import 'components/meeting_components.dart';
 
 class MeetingsView extends StatefulWidget {
   const MeetingsView({super.key});

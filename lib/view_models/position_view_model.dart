@@ -1,12 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:openViewF1/data/models/position.dart';
-import 'package:openViewF1/data/repositories/position_repo.dart';
+import 'package:openViewF1/data/repositories/.repository.dart';
 import 'package:openViewF1/helpers/services/dio_exception_handler.dart';
 import 'package:openViewF1/view_models/.view_model.dart';
 
 class PositionViewModel extends ChangeNotifier implements ViewModel {
-  final PositionRepo positionRepo;
+  final Repository positionRepo;
 
   PositionViewModel({required this.positionRepo});
 
@@ -18,8 +18,9 @@ class PositionViewModel extends ChangeNotifier implements ViewModel {
   Future<void> fetchData() async {
     isLoading = true;
     try {
-      positions.clear();
-      positions = await positionRepo.getAll();
+      if (positions.isEmpty) {
+        positions = await positionRepo.getAll() as List<Position>;
+      }
     } on DioException catch (e) {
       errorMsg = DioExceptionHandler.throwError(e).toString();
       notifyListeners();
@@ -34,7 +35,8 @@ class PositionViewModel extends ChangeNotifier implements ViewModel {
     isLoading = true;
     try {
       positions.clear();
-      positions = await positionRepo.getWithFilter(queryParams: queryParams);
+      positions = await positionRepo.getWithFilter(queryParams: queryParams)
+          as List<Position>;
     } on DioException catch (e) {
       errorMsg = DioExceptionHandler.throwError(e).toString();
       notifyListeners();

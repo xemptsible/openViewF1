@@ -1,14 +1,15 @@
 import 'package:flutter/material.dart';
-import 'package:openViewF1/data/models/position.dart';
 import 'package:openViewF1/view_models/driver_view_model.dart';
 import 'package:openViewF1/view_models/position_view_model.dart';
-import 'package:openViewF1/views/components/components.dart';
+import 'package:openViewF1/views/components/app_bar.dart';
 import 'package:provider/provider.dart';
 
-class SessionResultView extends StatefulWidget {
-  const SessionResultView({super.key, this.queryParams});
+import 'components/position_components.dart';
 
+class SessionResultView extends StatefulWidget {
   final dynamic queryParams;
+
+  const SessionResultView({super.key, this.queryParams});
 
   @override
   State<SessionResultView> createState() => _SessionResultViewState();

@@ -1,9 +1,4 @@
 import 'dart:convert';
-import 'dart:io';
-
-import 'package:flutter/material.dart';
-import 'package:http/http.dart' as http;
-import 'package:openViewF1/helpers/constants.dart';
 
 /* 
   https://github.com/theOehrly/Fast-F1/blob/317bacf8c61038d7e8d0f48165330167702b349f/fastf1/_api.py#L855
@@ -82,43 +77,5 @@ class Car {
   @override
   String toString() {
     return 'Car(driverNumber: $driverNumber, rpm: $rpm, speed: $speed, nGear: $nGear, throttle: $throttle, brake: $brake, drs: $drs, date: $date, sessionKey: $sessionKey, meetingKey: $meetingKey)';
-  }
-}
-
-class APICarData {
-  List<Car> data = [];
-  Future getCarData({dynamic queryParams}) async {
-    final dynamic defaultQueryParams = {
-      'session_key': 'latest',
-      'speed>': '340',
-      'driver_number': '44',
-    };
-
-    Uri uri = Uri.https(
-      openF1Url,
-      '$version/car_data',
-      queryParams ?? defaultQueryParams,
-    );
-
-    try {
-      final response = await http.get(uri, headers: {
-        HttpHeaders.contentTypeHeader: ContentType.json.toString()
-      });
-      data = List.from(jsonDecode(response.body));
-    } on Exception {
-      rethrow;
-    }
-
-    return data;
-  }
-}
-
-class WidgetCarData extends StatelessWidget {
-  const WidgetCarData({super.key});
-
-  @override
-  Widget build(BuildContext context) {
-    // TODO: implement build
-    throw UnimplementedError();
   }
 }

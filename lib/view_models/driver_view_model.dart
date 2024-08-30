@@ -1,12 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:openViewF1/data/models/driver.dart';
-import 'package:openViewF1/data/repositories/driver_repo.dart';
+import 'package:openViewF1/data/repositories/.repository.dart';
 import 'package:openViewF1/helpers/services/dio_exception_handler.dart';
 import 'package:openViewF1/view_models/.view_model.dart';
 
 class DriverViewModel extends ChangeNotifier implements ViewModel {
-  final DriverRepo driverRepo;
+  final Repository driverRepo;
 
   DriverViewModel({required this.driverRepo});
 
@@ -18,7 +18,7 @@ class DriverViewModel extends ChangeNotifier implements ViewModel {
   Future<void> fetchData() async {
     isLoading = true;
     try {
-      drivers = await driverRepo.getAll();
+      drivers = await driverRepo.getAll() as List<Driver>;
     } on DioException catch (e) {
       errorMsg = DioExceptionHandler.throwError(e).toString();
       notifyListeners();
@@ -32,7 +32,8 @@ class DriverViewModel extends ChangeNotifier implements ViewModel {
   Future<void> fetchDataWithQuery(queryParams) async {
     isLoading = true;
     try {
-      drivers = await driverRepo.getWithFilter(queryParams: queryParams);
+      drivers = await driverRepo.getWithFilter(queryParams: queryParams)
+          as List<Driver>;
     } on DioException catch (e) {
       errorMsg = DioExceptionHandler.throwError(e).toString();
       notifyListeners();

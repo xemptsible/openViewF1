@@ -1,12 +1,13 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
+
 import 'package:openViewF1/data/models/session.dart';
-import 'package:openViewF1/data/repositories/session_repo.dart';
+import 'package:openViewF1/data/repositories/.repository.dart';
 import 'package:openViewF1/helpers/services/dio_exception_handler.dart';
 import 'package:openViewF1/view_models/.view_model.dart';
 
 class SessionViewModel extends ChangeNotifier implements ViewModel {
-  final SessionRepo sessionRepo;
+  final Repository sessionRepo;
 
   SessionViewModel({required this.sessionRepo});
 
@@ -18,9 +19,10 @@ class SessionViewModel extends ChangeNotifier implements ViewModel {
   Future<void> fetchData() async {
     isLoading = true;
     try {
-      sessions.clear();
-      sessions = await sessionRepo.getAll();
-      sessions = sessions.reversed.toList();
+      if (sessions.isEmpty) {
+        sessions = await sessionRepo.getAll() as List<Session>;
+        sessions = sessions.reversed.toList();
+      }
     } on DioException catch (e) {
       errorMsg = DioExceptionHandler.throwError(e).toString();
       notifyListeners();
@@ -35,7 +37,8 @@ class SessionViewModel extends ChangeNotifier implements ViewModel {
     isLoading = true;
     try {
       sessions.clear();
-      sessions = await sessionRepo.getWithFilter(queryParams: queryParams);
+      sessions = await sessionRepo.getWithFilter(queryParams: queryParams)
+          as List<Session>;
       sessions = sessions.reversed.toList();
     } on DioException catch (e) {
       errorMsg = DioExceptionHandler.throwError(e).toString();

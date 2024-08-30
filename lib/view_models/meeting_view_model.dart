@@ -1,12 +1,12 @@
 import 'package:dio/dio.dart';
 import 'package:flutter/material.dart';
 import 'package:openViewF1/data/models/meeting.dart';
-import 'package:openViewF1/data/repositories/meeting_repo.dart';
+import 'package:openViewF1/data/repositories/.repository.dart';
 import 'package:openViewF1/helpers/services/dio_exception_handler.dart';
 import 'package:openViewF1/view_models/.view_model.dart';
 
 class MeetingViewModel extends ChangeNotifier implements ViewModel {
-  final MeetingRepo meetingRepo;
+  final Repository meetingRepo;
 
   MeetingViewModel({required this.meetingRepo});
 
@@ -18,7 +18,7 @@ class MeetingViewModel extends ChangeNotifier implements ViewModel {
   Future<void> fetchData() async {
     isLoading = true;
     try {
-      meetings = await meetingRepo.getAll();
+      meetings = await meetingRepo.getAll() as List<Meeting>;
     } on DioException catch (e) {
       errorMsg = DioExceptionHandler.throwError(e).toString();
       notifyListeners();
@@ -33,7 +33,8 @@ class MeetingViewModel extends ChangeNotifier implements ViewModel {
     isLoading = true;
     try {
       meetings.clear();
-      meetings = await meetingRepo.getWithFilter(queryParams: queryParams);
+      meetings = await meetingRepo.getWithFilter(queryParams: queryParams)
+          as List<Meeting>;
     } on DioException catch (e) {
       errorMsg = DioExceptionHandler.throwError(e).toString();
       notifyListeners();
