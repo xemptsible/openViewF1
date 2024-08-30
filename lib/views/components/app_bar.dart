@@ -37,6 +37,7 @@ class _AppBarDesignState extends State<AppBarDesign> {
       actions: [
         MenuAnchor(
           menuChildren: <Widget>[
+            // TODO: Use a local caching system to store state
             appBarTitle != null
                 ? const SizedBox.shrink()
                 : MenuItemButton(
