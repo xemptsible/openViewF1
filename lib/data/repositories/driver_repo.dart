@@ -4,7 +4,7 @@ import 'package:openViewF1/data/models/driver.dart';
 import 'package:openViewF1/data/repositories/.repository_interface.dart';
 import 'package:openViewF1/helpers/services/api_client.dart';
 
-class DriverRepo implements IRepository {
+class DriverRepo implements IRepository<Driver> {
   @override
   Future<List<Driver>> getAll() async {
     List<Driver> list = [];

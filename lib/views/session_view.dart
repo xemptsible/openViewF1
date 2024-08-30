@@ -10,16 +10,16 @@ class SessionView extends StatefulWidget {
   final dynamic queryParams;
 
   @override
-  State<StatefulWidget> createState() => _SessionState();
+  State<StatefulWidget> createState() => _listtate();
 }
 
-class _SessionState extends State<SessionView> {
-  late SessionViewModel sessionViewModel;
+class _listtate extends State<SessionView> {
+  late SessionViewModelImpl sessionViewModel;
 
   @override
   void initState() {
     super.initState();
-    sessionViewModel = Provider.of<SessionViewModel>(context, listen: false);
+    sessionViewModel = Provider.of<SessionViewModelImpl>(context, listen: false);
     sessionViewModel.fetchDataWithQuery(widget.queryParams);
   }
 
@@ -27,50 +27,50 @@ class _SessionState extends State<SessionView> {
   Widget build(BuildContext context) {
     return Scaffold(
       appBar: AppBarDesign(
-        appBarTitle: Consumer<SessionViewModel>(
-          builder: (context, viewModel, _) {
-            if (!viewModel.isLoading) {
-              return Text(viewModel.sessions.isNotEmpty
-                  ? '${viewModel.sessions.first.countryName}'
+        appBarTitle: Consumer<SessionViewModelImpl>(
+          builder: (context, session, child) {
+            if (!session.isLoading) {
+              return Text(session.list.isNotEmpty
+                  ? '${session.list.first.countryName}'
                   : "Error!");
             }
             return const Text('Loading...');
           },
         ),
       ),
-      body: Consumer<SessionViewModel>(
-        builder: (context, viewModel, child) {
-          if (viewModel.isLoading) {
+      body: Consumer<SessionViewModelImpl>(
+        builder: (context, session, child) {
+          if (session.isLoading) {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          } else if (viewModel.errorMsg != "" && viewModel.sessions.isEmpty) {
+          } else if (session.errorMsg != "" && session.list.isEmpty) {
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
                 children: [
-                  Text(viewModel.errorMsg),
+                  Text(session.errorMsg),
                   OutlinedButton(
                     onPressed: () {
-                      viewModel.fetchDataWithQuery(widget.queryParams);
-                      viewModel.errorMsg = "";
+                      session.fetchDataWithQuery(widget.queryParams);
+                      session.errorMsg = "";
                     },
                     child: const Text('Retry'),
                   )
                 ],
               ),
             );
-          } else if (viewModel.sessions.isEmpty) {
+          } else if (session.list.isEmpty) {
             return const Center(
               child: Text("There's nothing here. Please fix your filters"),
             );
           }
           return ListView.builder(
             physics: const NeverScrollableScrollPhysics(),
-            itemCount: viewModel.sessions.length,
+            itemCount: session.list.length,
             itemBuilder: (context, index) {
               return SessionListItem(
-                data: viewModel.sessions[index],
+                data: session.list[index],
               );
             },
           );

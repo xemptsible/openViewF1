@@ -5,24 +5,27 @@ import 'package:openViewF1/data/models/session.dart';
 
 import 'package:openViewF1/data/repositories/.repository_interface.dart';
 import 'package:openViewF1/helpers/services/dio_exception_handler.dart';
-import 'package:openViewF1/view_models/.view_model_interface.dart';
+import 'package:openViewF1/view_models/.view_model.dart';
 
-class SessionViewModel extends ChangeNotifier implements IViewModel {
+class SessionViewModelImpl extends ChangeNotifier implements ViewModel<Session> {
   final IRepository sessionRepo;
 
-  SessionViewModel({required this.sessionRepo});
+  SessionViewModelImpl({required this.sessionRepo});
 
+  @override
   bool isLoading = false;
-  List<Session> sessions = [];
+  @override
+  List<Session> list = [];
+  @override
   String errorMsg = "";
 
   @override
   Future<void> fetchData() async {
     isLoading = true;
     try {
-      if (sessions.isEmpty) {
-        sessions = await sessionRepo.getAll() as List<Session>;
-        sessions = sessions.reversed.toList();
+      if (list.isEmpty) {
+        list = await sessionRepo.getAll() as List<Session>;
+        list = list.reversed.toList();
       }
     } on DioException catch (e) {
       errorMsg = DioExceptionHandler.throwError(e).toString();
@@ -37,10 +40,11 @@ class SessionViewModel extends ChangeNotifier implements IViewModel {
   Future<void> fetchDataWithQuery(queryParams) async {
     isLoading = true;
     try {
-      sessions.clear();
-      sessions = await sessionRepo.getWithFilter(queryParams: queryParams)
-          as List<Session>;
-      sessions = sessions.reversed.toList();
+      if (list.isEmpty) {
+        list = await sessionRepo.getWithFilter(queryParams: queryParams)
+            as List<Session>;
+        list = list.reversed.toList();
+      }
     } on DioException catch (e) {
       errorMsg = DioExceptionHandler.throwError(e).toString();
       notifyListeners();

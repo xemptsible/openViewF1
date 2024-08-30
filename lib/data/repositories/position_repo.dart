@@ -4,7 +4,7 @@ import 'package:openViewF1/data/models/position.dart';
 import 'package:openViewF1/data/repositories/.repository_interface.dart';
 import 'package:openViewF1/helpers/services/api_client.dart';
 
-class PositionRepo extends IRepository {
+class PositionRepo implements IRepository<Position> {
   @override
   Future<List<Position>> getAll() async {
     List<Position> list = [];

@@ -4,22 +4,27 @@ import 'package:openViewF1/data/models/driver.dart';
 
 import 'package:openViewF1/data/repositories/.repository_interface.dart';
 import 'package:openViewF1/helpers/services/dio_exception_handler.dart';
-import 'package:openViewF1/view_models/.view_model_interface.dart';
+import 'package:openViewF1/view_models/.view_model.dart';
 
-class DriverViewModel extends ChangeNotifier implements IViewModel {
+class DriverViewModelImpl extends ChangeNotifier implements ViewModel<Driver> {
   final IRepository driverRepo;
 
-  DriverViewModel({required this.driverRepo});
+  DriverViewModelImpl({required this.driverRepo});
 
+  @override
+  List<Driver> list = [];
+  @override
   bool isLoading = false;
-  List<Driver> drivers = [];
+  @override
   String errorMsg = "";
 
   @override
   Future<void> fetchData() async {
     isLoading = true;
     try {
-      drivers = await driverRepo.getAll() as List<Driver>;
+      if (list.isEmpty) {
+        list = await driverRepo.getAll() as List<Driver>;
+      }
     } on DioException catch (e) {
       errorMsg = DioExceptionHandler.throwError(e).toString();
       notifyListeners();
@@ -33,8 +38,10 @@ class DriverViewModel extends ChangeNotifier implements IViewModel {
   Future<void> fetchDataWithQuery(queryParams) async {
     isLoading = true;
     try {
-      drivers = await driverRepo.getWithFilter(queryParams: queryParams)
-          as List<Driver>;
+      if (list.isEmpty) {
+        list = await driverRepo.getWithFilter(queryParams: queryParams)
+            as List<Driver>;
+      }
     } on DioException catch (e) {
       errorMsg = DioExceptionHandler.throwError(e).toString();
       notifyListeners();

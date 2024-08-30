@@ -4,7 +4,7 @@ import 'package:openViewF1/data/models/meeting.dart';
 import 'package:openViewF1/data/repositories/.repository_interface.dart';
 import 'package:openViewF1/helpers/services/api_client.dart';
 
-class MeetingRepo implements IRepository {
+class MeetingRepo implements IRepository<Meeting> {
   @override
   Future<List<Meeting>> getAll() async {
     List<Meeting> list = [];

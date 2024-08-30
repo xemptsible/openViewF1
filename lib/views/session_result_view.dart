@@ -16,16 +16,16 @@ class SessionResultView extends StatefulWidget {
 }
 
 class _SessionResultViewState extends State<SessionResultView> {
-  late final PositionViewModel positionViewModel;
-  late final DriverViewModel driverViewModel;
+  late final PositionViewModelImpl positionViewModel;
+  late final DriverViewModelImpl driverViewModel;
 
   @override
   void initState() {
     super.initState();
-    positionViewModel = Provider.of<PositionViewModel>(context, listen: false);
+    positionViewModel = Provider.of<PositionViewModelImpl>(context, listen: false);
     positionViewModel.fetchDataWithQuery(widget.queryParams);
 
-    driverViewModel = Provider.of<DriverViewModel>(context, listen: false);
+    driverViewModel = Provider.of<DriverViewModelImpl>(context, listen: false);
     driverViewModel.fetchDataWithQuery(widget.queryParams);
   }
 
@@ -45,42 +45,42 @@ class _SessionResultViewState extends State<SessionResultView> {
   }
 
   Widget _uiListOfMeetings() {
-    return Consumer2<PositionViewModel, DriverViewModel>(
-      builder: (context, pos, dri, child) {
-        final driverPos = pos.positions;
-        final driverInfo = dri.drivers;
+    return Consumer2<PositionViewModelImpl, DriverViewModelImpl>(
+      builder: (context, position, driver, child) {
+        final driverPos = position.list;
+        final driverInfo = driver.list;
 
-        if (pos.isLoading) {
+        if (position.isLoading) {
           return const Center(
             child: CircularProgressIndicator(),
           );
-        } else if (pos.errorMsg != "" && pos.positions.isEmpty) {
+        } else if (position.errorMsg != "" && position.list.isEmpty) {
           return Center(
             child: Column(
               mainAxisAlignment: MainAxisAlignment.center,
               children: [
-                Text(pos.errorMsg),
+                Text(position.errorMsg),
                 OutlinedButton(
                   onPressed: () {
-                    pos.fetchDataWithQuery(widget.queryParams);
-                    pos.errorMsg = "";
+                    position.fetchDataWithQuery(widget.queryParams);
+                    position.errorMsg = "";
                   },
                   child: const Text('Retry'),
                 )
               ],
             ),
           );
-        } else if (pos.positions.isEmpty) {
+        } else if (position.list.isEmpty) {
           return const Center(
             child: Text("There's nothing here. Please fix your filters"),
           );
         }
         return ListView.builder(
-          itemCount: pos.positions.length,
+          itemCount: position.list.length,
           itemBuilder: (context, index) {
             return SessionResultItem(
               position: driverPos[index],
-              driver: driverInfo[dri.drivers.indexWhere((element) =>
+              driver: driverInfo[driver.list.indexWhere((element) =>
                   element.driverNumber == driverPos[index].driverNumber)],
             );
           },

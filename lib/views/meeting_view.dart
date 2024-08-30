@@ -6,21 +6,21 @@ import 'package:provider/provider.dart';
 
 import 'components/meeting_components.dart';
 
-class MeetingsView extends StatefulWidget {
-  const MeetingsView({super.key});
+class MeetingView extends StatefulWidget {
+  const MeetingView({super.key});
 
   @override
   State<StatefulWidget> createState() => MeetingState();
 }
 
-class MeetingState extends State<MeetingsView> {
-  late MeetingViewModel meetingViewModel;
+class MeetingState extends State<MeetingView> {
+  late MeetingViewModelImpl meetingViewModel;
   late ViewType view;
 
   @override
   void initState() {
     super.initState();
-    meetingViewModel = Provider.of<MeetingViewModel>(context, listen: false);
+    meetingViewModel = Provider.of<MeetingViewModelImpl>(context, listen: false);
     meetingViewModel.fetchData();
 
     view = ViewType.list;
@@ -34,13 +34,13 @@ class MeetingState extends State<MeetingsView> {
           view = changeViewType(view);
         }),
       ),
-      body: Consumer<MeetingViewModel>(
+      body: Consumer<MeetingViewModelImpl>(
         builder: (context, viewModel, child) {
           if (viewModel.isLoading) {
             return const Center(
               child: CircularProgressIndicator(),
             );
-          } else if (viewModel.errorMsg != "" && viewModel.meetings.isEmpty) {
+          } else if (viewModel.errorMsg != "" && viewModel.list.isEmpty) {
             return Center(
               child: Column(
                 mainAxisAlignment: MainAxisAlignment.center,
@@ -56,7 +56,7 @@ class MeetingState extends State<MeetingsView> {
                 ],
               ),
             );
-          } else if (viewModel.meetings.isEmpty) {
+          } else if (viewModel.list.isEmpty) {
             return const Center(
               child: Text("There's nothing here. Please fix your filters"),
             );
@@ -65,9 +65,9 @@ class MeetingState extends State<MeetingsView> {
               ? ListView.separated(
                   separatorBuilder: (context, index) =>
                       const Divider(height: 0),
-                  itemCount: viewModel.meetings.length,
+                  itemCount: viewModel.list.length,
                   itemBuilder: (context, index) {
-                    return MeetingListItem(data: viewModel.meetings[index]);
+                    return MeetingListItem(data: viewModel.list[index]);
                   },
                 )
               : GridView.builder(
@@ -76,9 +76,9 @@ class MeetingState extends State<MeetingsView> {
                     childAspectRatio: 0.85,
                   ),
                   padding: const EdgeInsets.all(pad8),
-                  itemCount: viewModel.meetings.length,
+                  itemCount: viewModel.list.length,
                   itemBuilder: (context, index) {
-                    return MeetingGridItem(data: viewModel.meetings[index]);
+                    return MeetingGridItem(data: viewModel.list[index]);
                   },
                 );
         },

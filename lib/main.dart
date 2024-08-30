@@ -28,7 +28,7 @@ void main() async {
   // final box = await Hive.openBox('testBox');
 
   // Repostiory locators
-  // Service Locator pattern with GetX
+  // Service Locator pattern with GetIt
   setUpRepoLocator();
 
   runApp(
@@ -36,19 +36,19 @@ void main() async {
       providers: [
         ChangeNotifierProvider(
           create: (context) =>
-              SessionViewModel(sessionRepo: locator<SessionRepo>()),
+              SessionViewModelImpl(sessionRepo: locator<SessionRepo>()),
         ),
         ChangeNotifierProvider(
           create: (context) =>
-              MeetingViewModel(meetingRepo: locator<MeetingRepo>()),
+              MeetingViewModelImpl(meetingRepo: locator<MeetingRepo>()),
         ),
         ChangeNotifierProvider(
           create: (context) =>
-              PositionViewModel(positionRepo: locator<PositionRepo>()),
+              PositionViewModelImpl(positionRepo: locator<PositionRepo>()),
         ),
         ChangeNotifierProvider(
           create: (context) =>
-              DriverViewModel(driverRepo: locator<DriverRepo>()),
+              DriverViewModelImpl(driverRepo: locator<DriverRepo>()),
         ),
       ],
       child: const MainApp(),
@@ -64,9 +64,9 @@ class MainApp extends StatelessWidget {
     return MaterialApp.router(
       routerConfig: goRouter,
       // Theme config for FlexColorScheme version 7.3.x. Make sure you use
-// same or higher package version, but still same major version. If you
-// use a lower package version, some properties may not be supported.
-// In that case remove them after copying this theme to your app.
+      // same or higher package version, but still same major version. If you
+      // use a lower package version, some properties may not be supported.
+      // In that case remove them after copying this theme to your app.
       theme: FlexThemeData.light(
         colors: const FlexSchemeColor(
           primary: Color(0xffe10600),
@@ -112,8 +112,6 @@ class MainApp extends StatelessWidget {
       // If you do not have a themeMode switch, uncomment this line
       // to let the device system mode control the theme mode:
       themeMode: ThemeMode.system,
-
-      // home: const Home(),
     );
   }
 }
