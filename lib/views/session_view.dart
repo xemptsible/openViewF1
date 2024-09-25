@@ -10,10 +10,10 @@ class SessionView extends StatefulWidget {
   final dynamic queryParams;
 
   @override
-  State<StatefulWidget> createState() => _listtate();
+  State<StatefulWidget> createState() => _SessionState();
 }
 
-class _listtate extends State<SessionView> {
+class _SessionState extends State<SessionView> {
   late SessionViewModelImpl sessionViewModel;
 
   @override

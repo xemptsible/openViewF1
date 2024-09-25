@@ -10,10 +10,10 @@ class MeetingView extends StatefulWidget {
   const MeetingView({super.key});
 
   @override
-  State<StatefulWidget> createState() => MeetingState();
+  State<StatefulWidget> createState() => _MeetingState();
 }
 
-class MeetingState extends State<MeetingView> {
+class _MeetingState extends State<MeetingView> {
   late MeetingViewModelImpl meetingViewModel;
   late ViewType view;
 
